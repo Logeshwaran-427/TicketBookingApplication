@@ -1,9 +1,18 @@
 package com.example.TicketBookingApplication.DTOs;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class RegisterRequestDTO{
 
     String name;
+    @Column (unique = true)
+    @Email (message = "Please enter a valid email address")
     String email;
+    @NotBlank (message = "Please enter the password")
+    @Size (min = 8)
     String password;
 
     public RegisterRequestDTO() {

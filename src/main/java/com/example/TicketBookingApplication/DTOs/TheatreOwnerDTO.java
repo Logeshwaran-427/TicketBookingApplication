@@ -1,8 +1,13 @@
 package com.example.TicketBookingApplication.DTOs;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class TheatreOwnerDTO {
 
+    
+    @NotBlank (message = "Please enter the theatre name")
     String theaterName;
+    @NotBlank (message = "Please enter the location")
     String location;
     
     public TheatreOwnerDTO(String theaterName, String location) {

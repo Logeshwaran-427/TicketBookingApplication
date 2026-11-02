@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.TicketBookingApplication.Enums.Role;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -19,6 +20,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity 
 @Table (name = "Users")
@@ -27,8 +31,13 @@ public class User implements UserDetails {
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     Long id;
+    @NotBlank (message = "Please fill the field")
     String name;
+    @Column (unique = true)
+    @Email (message = "Please enter a valid email address")
     String email;
+    @NotBlank (message = "Please enter the password")
+    @Size (min = 8)
     String password;
     @Enumerated (EnumType.STRING)
     Role role;
@@ -95,7 +104,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.getName();
+        return this.getEmail();
     }
 
 }

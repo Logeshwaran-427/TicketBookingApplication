@@ -10,6 +10,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 
 @Entity 
@@ -18,15 +21,22 @@ public class Movie {
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     Long id;
+    @NotBlank(message = "Please enter the movie title")
     String title;
+    @NotBlank(message = "Please enter the movie description")
     String description;
+    @NotNull (message = "Please enter the movie duration")
+    @Positive(message = "Duration must be greater than zero")
     Integer duration;
-
+    @NotNull (message = "Please choose the category")
     @Enumerated (EnumType.STRING)
     MovieCategory category;
     String posterUrl;
+    @NotBlank(message = "Please enter the movie language")
     String language;
+    @NotBlank(message = "Please enter the movie censorRating")
     String censorRating;
+    @NotNull (message = "Please enter the releaseDate")
     LocalDate releaseDate;
 
     public Movie(Long id, String title, String description, Integer duration, MovieCategory category, String posterUrl,

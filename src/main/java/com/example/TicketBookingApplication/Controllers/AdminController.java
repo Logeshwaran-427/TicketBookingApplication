@@ -14,6 +14,8 @@ import com.example.TicketBookingApplication.DTOs.MovieRequestDTO;
 import com.example.TicketBookingApplication.Service.AuthService;
 import com.example.TicketBookingApplication.Service.MovieService;
 
+import jakarta.validation.Valid;
+
 
 
 @RestController 
@@ -43,7 +45,7 @@ public class AdminController {
 
     @PreAuthorize ("hasRole('ADMIN')")
     @PostMapping("/add")
-    public ResponseEntity<String> postMethodName(@RequestBody MovieRequestDTO movieRequestDTO) {
+    public ResponseEntity<String> postMethodName(@RequestBody @Valid  MovieRequestDTO movieRequestDTO) {
         return movieService.addMovie(movieRequestDTO);
     }
 

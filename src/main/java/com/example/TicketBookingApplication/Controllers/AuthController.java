@@ -16,6 +16,8 @@ import com.example.TicketBookingApplication.Service.AuthService;
 import com.example.TicketBookingApplication.Service.UserService;
 import com.example.TicketBookingApplication.UtilityClass.JwtUtil;
 
+import jakarta.validation.Valid;
+
 
 
 @RestController 
@@ -36,21 +38,21 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String postMethodName(@RequestBody LoginDTO login) {
+    public String postMethodName(@RequestBody @Valid  LoginDTO login) {
         
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getName(), login.getPassword()));
-        String token=jwtUtil.generateToken(login.getName());
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword()));
+        String token=jwtUtil.generateToken(login.getEmail());
         return token;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> postMethodName(@RequestBody RegisterRequestDTO registerRequestDTO) {
+    public ResponseEntity<String> postMethodName(@RequestBody @Valid RegisterRequestDTO registerRequestDTO) {
         return authService.registerMember(registerRequestDTO);
     }
 
     @PreAuthorize ("hasRole('MEMBER')")
     @PostMapping("/applyTheatreOwner")
-    public ResponseEntity<String> applyForTheatreOwnerAccess(@RequestBody TheatreOwnerDTO theatreOwnerDTO) {
+    public ResponseEntity<String> applyForTheatreOwnerAccess(@RequestBody @Valid  TheatreOwnerDTO theatreOwnerDTO) {
         return authService.applyForTheatreOwner(theatreOwnerDTO);
     }
 

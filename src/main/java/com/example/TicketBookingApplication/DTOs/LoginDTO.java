@@ -2,22 +2,22 @@ package com.example.TicketBookingApplication.DTOs;
 
 public class LoginDTO {
     
-    String name;
+    String email;
     String password;
 
-    public LoginDTO(String name, String password) {
-        this.name = name;
+    public LoginDTO(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
     public LoginDTO() {
     }
     
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
     }
     public String getPassword() {
         return password;

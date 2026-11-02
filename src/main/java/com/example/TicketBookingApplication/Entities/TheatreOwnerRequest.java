@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity 
 public class TheatreOwnerRequest {
@@ -21,7 +22,9 @@ public class TheatreOwnerRequest {
     Long id;
 
     Long userId;
+    @NotBlank (message = "Please enter the theatre name")
     String theaterName;
+    @NotBlank (message = "Please enter the location")
     String location;
 
     @Enumerated(EnumType.STRING)

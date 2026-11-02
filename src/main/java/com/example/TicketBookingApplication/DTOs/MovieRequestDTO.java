@@ -4,15 +4,31 @@ import java.time.LocalDate;
 
 import com.example.TicketBookingApplication.Enums.MovieCategory;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class MovieRequestDTO {
 
+
+    @NotBlank(message = "Please enter the movie title")
     String title;
+    @NotBlank(message = "Please enter the movie description")
     String description;
+    @NotNull (message = "Please enter the movie duration")
+    @Positive(message = "Duration must be greater than zero")
     Integer duration;
+    @NotNull (message = "Please choose the category")
+    @Enumerated (EnumType.STRING)
     MovieCategory category;
     String posterUrl;
+    @NotBlank(message = "Please enter the movie language")
     String language;
+    @NotBlank(message = "Please enter the movie censorRating")
     String censorRating;
+    @NotNull (message = "Please enter the releaseDate")
     LocalDate releaseDate;
 
     public MovieRequestDTO() {
