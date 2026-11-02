@@ -42,16 +42,16 @@ public class JwtUtil {
     long expiryTime=1000*60*60;
 
 
-    public String generateToken(String name){
+    public String generateToken(String email){
 
-        User user=userRepository.findByName(name).orElseThrow(()->new ResourceNotFoundException("User not found"));
+        User user=userRepository.findByEmail(email).orElseThrow(()->new ResourceNotFoundException("User not found"));
         Map<String,String> roleClaim=new HashMap<>();
         roleClaim.put("role", user.getRole().name());
 
         return Jwts.builder().
         setClaims(roleClaim).
         claim("userId", user.getId()).
-        setSubject(name).
+        setSubject(email).
         setIssuedAt(new Date()).
         setExpiration(new Date(System.currentTimeMillis()+expiryTime)).
         signWith(key,SignatureAlgorithm.HS256).compact();
