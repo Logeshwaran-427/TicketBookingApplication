@@ -141,10 +141,11 @@ class TicketBookingApplicationTests {
 		User user=new User();
 		user.setName("Loki");
 		user.setPassword(passwordEncoder.encode("Logesh@427"));
+		user.setEmail("Logesh@gmail.com");
 		user.setRole(Role.ADMIN);
 		userRepository.save(user);
 
-		String requestJson="{\"name\":\"Loki\",\"password\":\"Logesh@427\"}";
+		String requestJson="{\"email\":\"Logesh@gmail.com\",\"password\":\"Logesh@427\"}";
 
 
 		MvcResult response=mockMvc.perform(post("/auth/login").contentType(MediaType.APPLICATION_JSON).content(requestJson)).andExpect(status().isOk()).andReturn();
@@ -186,10 +187,11 @@ class TicketBookingApplicationTests {
 		User user=new User();
 		user.setName("Loki");
 		user.setPassword(passwordEncoder.encode("Logesh@427"));
+		user.setEmail("Logesh@gmail.com");
 		user.setRole(Role.ADMIN);
 		userRepository.save(user);
 
-		String token=jwtUtil.generateToken(user.getName());
+		String token=jwtUtil.generateToken(user.getEmail());
 
 
 		MovieRequestDTO movieRequestDTO=new MovieRequestDTO();
@@ -223,7 +225,7 @@ class TicketBookingApplicationTests {
 
 		userRepository.save(user);
 
-		String token=jwtUtil.generateToken(user.getName());
+		String token=jwtUtil.generateToken(user.getEmail());
 
 		TheatreOwnerDTO theatreOwnerDTO=new TheatreOwnerDTO();
 		theatreOwnerDTO.setTheaterName("Vel");
@@ -255,7 +257,7 @@ class TicketBookingApplicationTests {
 		user.setRole(Role.ADMIN);
 		userRepository.save(user);
 
-		String token=jwtUtil.generateToken(user.getName());
+		String token=jwtUtil.generateToken(user.getEmail());
 
 		CommentDTO commentDTO=new CommentDTO();
 		commentDTO.setComments("Your request is approved");
@@ -287,7 +289,7 @@ class TicketBookingApplicationTests {
 
 		User user2=userRepository.findByEmail("Logesh@tcs.com").orElseThrow();
 		assertThat(user2.getRole()).isEqualTo(Role.THEATRE_OWNER);
-		assertThat(user2.getUsername()).isEqualTo("Loki");
+		assertThat(user2.getName()).isEqualTo("Loki");
 
 		TheatreOwnerRequest theatreOwnerRequest2=theatreOwnerRequestRepo.findByTheaterName("Vel").orElseThrow();
 		assertThat(theatreOwnerRequest2.getStatus()).isEqualTo(RequestStatus.APPROVED);
@@ -305,7 +307,7 @@ class TicketBookingApplicationTests {
 		user.setRole(Role.THEATRE_OWNER);
 		userRepository.save(user);
 
-		String token=jwtUtil.generateToken(user.getName());
+		String token=jwtUtil.generateToken(user.getEmail());
 
 		User uName=userRepository.findByEmail("Logesh@tcs.com").orElseThrow();
 
@@ -364,7 +366,7 @@ class TicketBookingApplicationTests {
 		user.setRole(Role.THEATRE_OWNER);
 		userRepository.save(user);
 
-		String token=jwtUtil.generateToken(user.getName());
+		String token=jwtUtil.generateToken(user.getEmail());
 
 		User uName=userRepository.findByEmail("Logesh@tcs.com").orElseThrow();
 
@@ -451,8 +453,8 @@ class TicketBookingApplicationTests {
 
 		TestData data=createTestDetails();
 
-		String abhiToken=jwtUtil.generateToken(abhi.getName());
-		String samToken=jwtUtil.generateToken(sam.getName());
+		String abhiToken=jwtUtil.generateToken(abhi.getEmail());
+		String samToken=jwtUtil.generateToken(sam.getEmail());
 
 		SeatHoldRequestDTO seatHoldRequestDTO=new SeatHoldRequestDTO();
 		seatHoldRequestDTO.setShowId(data.showId());
